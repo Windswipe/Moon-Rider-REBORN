@@ -4,23 +4,25 @@ var path = require('path');
 var webpack = require('webpack');
 const COLORS = require('./src/constants/colors.js');
 
-PLUGINS = [
-  new webpack.EnvironmentPlugin(['DEBUG_LOG', 'NODE_ENV']),
+const PLUGINS = [
+  new webpack.EnvironmentPlugin({ DEBUG_LOG: false, NODE_ENV: 'development' }),
   new webpack.HotModuleReplacementPlugin(),
   // @firebase/polyfill not loading, stub it with some random module.
-  new webpack.NormalModuleReplacementPlugin(
-    /firebase\/polyfill/,
-    '../../../../src/constants/colors.js'
-  )
+  new webpack.NormalModuleReplacementPlugin(/firebase\/polyfill/, '../../../../src/constants/colors.js')
 ];
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'development',
   optimization: {
     minimize: process.env.NODE_ENV === 'production'
   },
   devServer: {
-    disableHostCheck: true,
-    hotOnly: true
+    hot: true,
+    allowedHosts: 'all',
+    static: {
+      directory: path.resolve(__dirname),
+      publicPath: '/'
+    }
   },
   entry: {
     build: './src/index.js',
@@ -35,18 +37,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.js$/,
         exclude: /(node_modules)/,
         use: ['babel-loader', 'aframe-super-hot-loader']
       },
       {
-        test: /\.json/,
+        test: /\.json$/,
         exclude: /(node_modules)/,
         type: 'javascript/auto',
-        loader: ['json-loader']
+        use: ['json-loader']
       },
       {
-        test: /\.html/,
+        test: /\.html$/,
         exclude: /(node_modules)/,
         use: [
           'aframe-super-hot-html-loader',
@@ -74,9 +76,9 @@ module.exports = {
         ]
       },
       {
-        test: /\.glsl/,
+        test: /\.glsl$/,
         exclude: /(node_modules)/,
-        loader: 'webpack-glsl-loader'
+        use: ['webpack-glsl-loader']
       },
       {
         test: /\.css$/,
@@ -84,12 +86,16 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(png|jpg)/,
-        loader: 'url-loader'
+        test: /\.(png|jpg)$/,
+        use: ['url-loader']
       }
     ]
   },
   resolve: {
-    modules: [path.join(__dirname, 'node_modules')]
+    modules: [path.join(__dirname, 'node_modules')],
+    fallback: {
+      zlib: require.resolve('browserify-zlib'),
+      stream: require.resolve('stream-browserify')
+    }
   }
 };

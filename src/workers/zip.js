@@ -1,6 +1,6 @@
 var window = self;
 
-var unzip = require('unzip-js')
+var JSZip = require('jszip')
 
 const difficulties = [];
 
@@ -16,87 +16,52 @@ addEventListener('message', function (evt) {
 
 
 
-  unzip(evt.data.directDownload, function (err, zipFile) {
-    if (err) {
-      return console.error(err)
-    }
-
-    zipFile.readEntries(function (err, entries) {
-      if (err) {
-        return console.error(err)
-      }
-
-      const data = {
-        audio: undefined,
-        beats: {}
-      };
-
+  fetch(evt.data.directDownload)
+    .then(function (r) { return r.arrayBuffer() })
+    .then(function (ab) { return JSZip.loadAsync(ab) })
+    .then(function (zip) {
+      const data = { audio: undefined, beats: {} };
       const beatFiles = {};
 
-      entries.forEach(function (entry) {
-
-        const chunks = [];
-
-        zipFile.readEntryData(entry, false, function (err, readStream) {
-          if (err) {
-            return console.error(err)
-          }
-
-          readStream.on('data', function (chunk) { chunks.push(chunk) })
-
-          readStream.on('end', function () {
-
-            if (entry.name.endsWith('.egg') || entry.name.endsWith('.ogg')) {
-              var blob = new Blob(chunks, /* { type: 'application/octet-binary' } */);
-              var url = URL.createObjectURL(blob);
-
-              data.audio = url;
+      const filePromises = [];
+      zip.forEach(function (relativePath, file) {
+        if (relativePath.toLowerCase().endsWith('.egg') || relativePath.toLowerCase().endsWith('.ogg')) {
+          filePromises.push(file.async('blob').then(function (blob) {
+            data.audio = URL.createObjectURL(blob);
+          }));
+        } else if (relativePath.toLowerCase().endsWith('.dat')) {
+          filePromises.push(file.async('string').then(function (str) {
+            const value = JSON.parse(str);
+            if (relativePath.toLowerCase() === 'info.dat') {
+              data.info = value;
             } else {
-
-              var filename = entry.name;
-              if (!filename.toLowerCase().endsWith('.dat')) return;
-
-              var string = Buffer.concat(chunks).toString('utf8')
-              var value = JSON.parse(string);
-
-              if (filename.toLowerCase() === 'info.dat') {
-                data.info = value;
-              } else {
-                value._beatsPerMinute = evt.data.bpm;
-                beatFiles[filename] = value;
-              }
+              value._beatsPerMinute = evt.data.bpm;
+              beatFiles[relativePath] = value;
             }
+          }));
+        }
+      });
 
-            if (data.audio === undefined) {
-              return;
+      Promise.all(filePromises).then(function () {
+        if (!data.audio || !data.info) return postMessage({ message: 'error', error: 'missing audio or info.dat' });
+
+        for (const difficultyBeatmapSet of data.info._difficultyBeatmapSets) {
+          const beatmapCharacteristicName = difficultyBeatmapSet._beatmapCharacteristicName;
+          for (const difficultyBeatmap of difficultyBeatmapSet._difficultyBeatmaps) {
+            const difficulty = difficultyBeatmap._difficulty;
+            const beatmapFilename = difficultyBeatmap._beatmapFilename;
+            if (beatFiles[beatmapFilename] === undefined) continue;
+            const id = beatmapCharacteristicName + '-' + difficulty;
+            if (data.beats[id] === undefined) {
+              data.beats[id] = beatFiles[beatmapFilename];
             }
-            if (data.info === undefined) {
-              return;
-            }
+          }
+        }
 
-            for (const difficultyBeatmapSet of data.info._difficultyBeatmapSets) {
-              const beatmapCharacteristicName = difficultyBeatmapSet._beatmapCharacteristicName;
-
-              for (const difficultyBeatmap of difficultyBeatmapSet._difficultyBeatmaps) {
-                const difficulty = difficultyBeatmap._difficulty;
-                const beatmapFilename = difficultyBeatmap._beatmapFilename;
-                if (beatFiles[beatmapFilename] === undefined) {
-                  return;
-                }
-
-                const id = beatmapCharacteristicName + '-' + difficulty;
-                if (data.beats[id] === undefined) {
-                  data.beats[id] = beatFiles[beatmapFilename];
-                }
-              }
-            }
-
-            postMessage({ message: 'load', data: data, version: version, hash: hash });
-          })
-        })
-      })
+        postMessage({ message: 'load', data: data, version: version, hash: hash });
+      });
     })
-  })
+    .catch(function (err) { postMessage({ message: 'error', error: String(err) }) });
   return;
 
 
