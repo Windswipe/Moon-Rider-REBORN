@@ -19,7 +19,10 @@
   </head>
   <body>
     <div id="app"></div>
-    <div id="vrButton" title="Enter VR / Fullscreen"><p>Click Here to Enter VR</p></div>
+    <!-- Inline styles as a fallback if bundled CSS hasn't applied in the browser. -->
+    <div id="vrButton" title="Enter VR / Fullscreen" style="position:absolute;right:20px;bottom:20px;z-index:9999999;width:84px;height:47px;cursor:pointer;background:url(assets/img/enter-vr-button-background.png) no-repeat;background-size:cover;">
+      <p style="position:relative;bottom:45px;color:#FFF;font-size:12px;font-family:monospace;font-weight:bold;text-align:center;text-transform:uppercase;">Click Here to Enter VR</p>
+    </div>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111391431-16"></script>
     <script>
