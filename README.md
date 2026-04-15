@@ -20,3 +20,6 @@ A fork of Supermedium's Moon Rider meant to fix long-standing issues, add QoL tw
 3. Use ``npm run start`` to start the webserver.
 ### OR
 Access [Moon Rider: REBORN](https://windswipe.github.io/Moon-Rider-REBORN/) on GitHub Pages from a standalone headset like the Meta Quest.
+
+## Disclaimer
+This project contains AI generated code. I'm not trying to portray this as my own work, and I'm not asking for money. I simply wanted to see these issues fixed and features added, and instead of begging others, I guided GitHub Copilot in VS Code to make the changes I wanted.
