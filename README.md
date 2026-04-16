@@ -6,6 +6,9 @@ A fork of Supermedium's Moon Rider meant to fix long-standing issues, add QoL tw
 - Updated backend no longer requires old, insecure dependancies or legacy SSL.
 - Album art now properly renders again.
 
+### New Features:
+- **Local Leaderboard Option**: Toggle between cloud and local leaderboards. Local scores are stored in browser localStorage and persist across sessions.
+
 ### TODOs (in no particular order):
 - Fix Quest specific issues with haptics.
 - Improve hand tracking support.

@@ -8,7 +8,7 @@ const ba = /(fuc)|(ass)|(nig)|(shit)|(retard)/gi;
 // TODO! Support beatmapCharacteristic in here
 
 /**
- * High score with Firebase cloud store.
+ * High score with Firebase cloud store or local storage.
  * Index: challengeId ASC difficulty ASC score DESC time ASC
  */
 AFRAME.registerComponent('leaderboard', {
@@ -26,7 +26,8 @@ AFRAME.registerComponent('leaderboard', {
     inVR: {default: false},
     gameMode: {type: 'string'},
     menuSelectedChallengeId: {default: ''},
-    isVictory: {default: false}
+    isVictory: {default: false},
+    useLocalLeaderboard: {default: false}
   },
 
   init: function () {
@@ -44,8 +45,11 @@ AFRAME.registerComponent('leaderboard', {
   },
 
   update: function (oldData) {
-    // Initialize Cloud Firestore through Firebase.
-    if (!firebase.apps.length && this.data.apiKey) {
+    const state = this.el.sceneEl.systems.state.state;
+    this.data.useLocalLeaderboard = state.leaderboardUseLocal;
+
+    // Initialize Cloud Firestore through Firebase (only if using cloud).
+    if (!firebase.apps.length && this.data.apiKey && !this.data.useLocalLeaderboard) {
       firebase.initializeApp({
         apiKey: this.data.apiKey,
         authDomain: this.data.authDomain,
@@ -92,22 +96,90 @@ AFRAME.registerComponent('leaderboard', {
       score: state.score.score,
       username: this.username,
       difficulty: this.data.difficulty || state.challenge.difficulty,
-      time: new Date()
+      time: new Date().toISOString()
     };
 
-    if (!pr.includes(this.username.toLowerCase()) &&
-      !this.username.match(ba)) {
-      this.db.add(scoreData);
+    if (this.data.useLocalLeaderboard) {
+      this.addLocalScore(scoreData);
+    } else {
+      if (!pr.includes(this.username.toLowerCase()) &&
+        !this.username.match(ba)) {
+        this.db.add(scoreData);
+      }
     }
 
     this.addEventDetail.scoreData = scoreData;
     this.el.emit('leaderboardscoreadded', this.addEventDetail, false);
   },
 
+  /**
+   * Add score to local storage.
+   */
+  addLocalScore: function (scoreData) {
+    const key = `leaderboard_${scoreData.challengeId}_${scoreData.difficulty}_${scoreData.gameMode}`;
+    let scores = JSON.parse(localStorage.getItem(key) || '[]');
+    scores.push(scoreData);
+    // Sort by score descending, then by time ascending
+    scores.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return new Date(a.time) - new Date(b.time);
+    });
+    // Keep only top 10
+    scores = scores.slice(0, NUM_SCORES_DISPLAYED);
+    localStorage.setItem(key, JSON.stringify(scores));
+  },
+
+  /**
+   * Get scores from local storage.
+   */
+  getLocalScores: function (challengeId, difficulty, gameMode) {
+    const key = `leaderboard_${challengeId}_${difficulty}_${gameMode}`;
+    return JSON.parse(localStorage.getItem(key) || '[]');
+  },
+
+  /**
+   * Clear local scores for a specific song.
+   */
+  clearLocalScores: function (challengeId) {
+    for (let key in localStorage) {
+      if (key.startsWith(`leaderboard_${challengeId}_`)) {
+        localStorage.removeItem(key);
+      }
+    }
+  },
+
   fetchScores: function (challengeId) {
     if (this.data.gameMode === 'ride') { return; }
 
     const state = this.el.sceneEl.systems.state.state;
+    
+    if (this.data.useLocalLeaderboard) {
+      this.fetchLocalScores(challengeId, state);
+    } else {
+      this.fetchCloudScores(challengeId, state);
+    }
+  },
+
+  /**
+   * Fetch scores from local storage.
+   */
+  fetchLocalScores: function (challengeId, state) {
+    const difficulty = state.menuSelectedChallenge.id
+      ? state.menuSelectedChallenge.difficulty
+      : state.challenge.difficulty;
+    
+    const scores = this.getLocalScores(challengeId, difficulty, this.data.gameMode);
+    
+    this.eventDetail.challengeId = challengeId;
+    this.scores.length = 0;
+    scores.forEach(score => this.scores.push(score));
+    this.el.sceneEl.emit('leaderboard', this.eventDetail, false);
+  },
+
+  /**
+   * Fetch scores from Firebase cloud.
+   */
+  fetchCloudScores: function (challengeId, state) {
     const query = this.db
       .where('challengeId', '==', challengeId)
       .where(

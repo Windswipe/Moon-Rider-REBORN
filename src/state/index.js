@@ -116,6 +116,7 @@ AFRAME.registerState({
     leaderboardQualified: false,
     leaderboardNames: '',
     leaderboardScores: '',
+    leaderboardUseLocal: localStorage.getItem('leaderboardUseLocal') === 'true',  // Use local leaderboard instead of cloud.
     mainMenuActive: false,
     menuActive: SKIP_INTRO, // Main menu active.
     menuDifficulties: [],
@@ -477,6 +478,14 @@ AFRAME.registerState({
 
     leaderboardsubmit: state => {
       state.leaderboardQualified = false;
+    },
+
+    leaderboardtogglemode: state => {
+      state.leaderboardUseLocal = !state.leaderboardUseLocal;
+      localStorage.setItem('leaderboardUseLocal', state.leaderboardUseLocal);
+      // Signal to refresh leaderboard display
+      state.leaderboard.length = 0;
+      state.leaderboard.__dirty = true;
     },
 
     menuback: state => {
