@@ -484,8 +484,8 @@ AFRAME.registerState({
       state.leaderboardUseLocal = !state.leaderboardUseLocal;
       localStorage.setItem('leaderboardUseLocal', state.leaderboardUseLocal);
       // Signal to refresh leaderboard display
-      state.leaderboard.length = 0;
-      state.leaderboard.__dirty = true;
+      clearLeaderboard(state);
+      state.leaderboardLoading = true
     },
 
     menuback: state => {

@@ -33,18 +33,17 @@
   <a-entity
     id="leaderboardModeToggle"
     scale="0.5 0.5 0.5"
-    bind__visible="!leaderboardQualified && (menuActive || isPaused)"
     position="0.005 0.44 0.001"
     geometry="primitive: plane; width: 0.28; height: 0.08"
     material="shader: flat; transparent: true; opacity: 0.8"
     bind__material="color: leaderboardUseLocal && '#4CAF50' || '#2196F3'"
-    raycastable-target="width: 0.28; height: 0.08"
-    proxy-event="event: click; to: a-scene; as: leaderboardtogglemode">
+    bind__visible-raycastable="!leaderboardQualified && (menuActive || isPaused)"
+    proxy-event="event: click; to: a-scene; as: leaderboardtogglemode"
+    render-order="menuitem">
     <a-entity
       mixin="font"
       text="align: center; baseline: center; wrapCount: 10; font-size: 16"
       bind__text="value: leaderboardUseLocal && 'LOCAL' || 'CLOUD'"
-      bind__material="color: leaderboardUseLocal && '#fff' || '#fff'"
       position="0 0 0.01"></a-entity>
   </a-entity>
 
