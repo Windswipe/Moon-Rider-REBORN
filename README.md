@@ -1,6 +1,6 @@
 # Moon Rider: REBORN
 
-A fork of Supermedium's Moon Rider meant to fix long-standing issues, add QoL tweaks, and new features.
+A fork of Supermedium's [Moon Rider](https://github.com/supermedium/moonrider/) meant to fix long-standing issues, add QoL tweaks, and new features.
 
 ## Changes
 ### Fixed:
