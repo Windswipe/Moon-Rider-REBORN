@@ -5,9 +5,9 @@ A fork of Supermedium's Moon Rider meant to fix long-standing issues, add QoL tw
 ## Changes
 ### Fixed:
 - Updated backend no longer requires many old, long-deprecated dependencies or legacy OpenSSL.
-- Bumped core modules like Webpack, A-Frame, and Node.
+- Bumped core modules like Webpack and Node.
 - Album art now properly renders again.
-- Quest haptic issues should be resolved. (Quest 2 is verified but I don't have a Quest 3 to test with.)
+- Quest haptic issues should be resolved. (Huge thanks to @vincentfretin for this fix!)
 - Error messages during loading now appear properly.
 
 ### New Features:
