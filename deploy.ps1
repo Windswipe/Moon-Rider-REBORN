@@ -1,0 +1,2 @@
+npm run build 2>&1 | Select-Object -Last 15 ; echo "---Build Complete---"
+mkdir -Force .ghpages | Out-Null; Copy-Item -Path index.html,assets,build,vendor -Destination .ghpages -Recurse -Force -ErrorAction SilentlyContinue; npx gh-pages -d .ghpages -r https://github.com/Windswipe/Moon-Rider-REBORN.git 2>&1 | Select-Object -Last 5
