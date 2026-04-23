@@ -31,7 +31,7 @@ Access [Moon Rider: REBORN](https://windswipe.github.io/Moon-Rider-REBORN/) on G
 ## Contribution
 If you'd like to contribute, open a PR; I'll review any submitted. AI code is allowed, but it must actually work and have some degree of quality.
 
-If you can't contribute, but have ideas or just want to chat, join the Discord at https://discord.gg/B3sBGabHy9.
+If you can't contribute but have ideas or just want to chat, join the Discord at https://discord.gg/B3sBGabHy9.
 
 ## Disclaimer
 This project contains AI generated code. I'm not trying to portray this as my own work, and I'm not asking for money. I simply wanted to see these issues fixed and features added, and instead of begging others, I guided GitHub Copilot in VS Code to make the changes I wanted.

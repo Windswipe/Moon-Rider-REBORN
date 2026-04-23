@@ -18,6 +18,16 @@ const COLORS = {
 
 COLORS.schemes = {
   default: {
+    name: 'REBORN',
+    off: '#111',
+    primary: '#C2C04C',
+    primarybright: '#FAF761',
+    secondary: '#E03A3E',
+    secondarybright: '#FA7578',
+    tertiary: COLORS.DARKBLUE
+  },
+
+  classic: {
     name: 'Super Medium',
     off: '#111',
     primary: COLORS.RED,
@@ -55,16 +65,6 @@ COLORS.schemes = {
     secondary: '#6A39B3',
     secondarybright: '#B685FF',
     tertiary: '#FAFAFA'
-  },
-
-  yellow: {
-    name: 'Solar Flare',
-    off: '#111',
-    primary: '#C2C04C',
-    primarybright: '#FAF761',
-    secondary: '#E03A3E',
-    secondarybright: '#FA7578',
-    tertiary: '#278ECC'
   },
 
   red: {
