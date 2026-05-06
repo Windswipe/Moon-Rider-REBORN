@@ -21,7 +21,10 @@ module.exports = {
     allowedHosts: 'all',
     static: {
       directory: path.resolve(__dirname),
-      publicPath: '/'
+      publicPath: '/',
+      watch: {
+        ignored: /node_modules|build|\.git/
+      }
     }
   },
   entry: {

@@ -12,6 +12,7 @@ A fork of Supermedium's [Moon Rider](https://github.com/supermedium/moonrider/) 
 
 ### New Features:
 - **Local Leaderboard Option**: Toggle between cloud and local leaderboards. Local scores are stored in browser localStorage and persist across sessions.
+- **User Data Import/Export**: Export favorites and local leaderboard high scores to a JSON file and import them anytime, anywhere. Moving from PC to Quest, or vice versa? No problem! What's more, you can even merge saves - if you play on both, you can export from both and merge them into a single file.
 
 ### TODOs (in no particular order):
 - Improve hand tracking support.
@@ -19,6 +20,8 @@ A fork of Supermedium's [Moon Rider](https://github.com/supermedium/moonrider/) 
 - Improve\replace keyboard in search.
 - Improve map lighting support.
 - Overhaul search with filter support and the option to hide maps.
+- Add custom saber support.
+- Add streamer mode? (Twitch integration for chat/commands)
 
 ## Usage
 1. Clone repo.
