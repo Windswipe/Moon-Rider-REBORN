@@ -9,10 +9,12 @@ A fork of Supermedium's [Moon Rider](https://github.com/supermedium/moonrider/) 
 - Album art now properly renders again.
 - Quest haptic issues should be resolved. (Huge thanks to @vincentfretin for this fix!)
 - Error messages during loading now appear properly.
+- Incorrect thumbnails will no longer appear when thumbnail load fails. Instead, the favicon will be used as a placeholder.
 
 ### New Features:
 - **Local Leaderboard Option**: Toggle between cloud and local leaderboards. Local scores are stored in browser localStorage and persist across sessions.
 - **User Data Import/Export**: Export favorites and local leaderboard high scores to a JSON file and import them anytime, anywhere. Moving from PC to Quest, or vice versa? No problem! What's more, you can even merge saves - if you play on both, you can export from both and merge them into a single file.
+- **Resource Pack Support**: Use your own custom models, textures, and sounds in Moon Rider: REBORN. (Documentation coming soon!)
 
 ### TODOs (in no particular order):
 - Improve hand tracking support.
@@ -20,7 +22,6 @@ A fork of Supermedium's [Moon Rider](https://github.com/supermedium/moonrider/) 
 - Improve\replace keyboard in search.
 - Improve map lighting support.
 - Overhaul search with filter support and the option to hide maps.
-- Add custom saber support.
 - Add streamer mode? (Twitch integration for chat/commands)
 
 ## Usage
@@ -37,4 +38,4 @@ If you'd like to contribute, open a PR; I'll review any submitted. AI code is al
 If you can't contribute but have ideas or just want to chat, join the Discord at https://discord.gg/B3sBGabHy9.
 
 ## Disclaimer
-This project contains AI generated code. I'm not trying to portray this as my own work, and I'm not asking for money. I simply wanted to see these issues fixed and features added, and instead of begging others, I guided GitHub Copilot in VS Code to make the changes I wanted.
+This project contains AI generated code. I'm not trying to portray this as my own work, and I'm not asking for money. I simply wanted to see these issues fixed and features added, and instead of begging others, I used various AI tools to help make it happen.

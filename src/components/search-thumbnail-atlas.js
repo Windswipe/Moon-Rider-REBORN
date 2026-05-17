@@ -53,13 +53,24 @@ AFRAME.registerComponent('search-thumbnail-atlas', {
     for (let i = 0; i < results.length; i++) {
       let img = this.images[i] = this.images[i] || document.createElement('img');
       img.crossOrigin = 'anonymous';
-      img.src = results[i].coverURL;
-      if (img.complete) {
+
+      img.onload = () => {
         this.draw(img, i);
-      } else {
-        img.onload = () => {
+      };
+      
+      img.onerror = () => {
+        img.onerror = null;
+        img.src = 'assets/img/favicon.png';
+      };
+
+      img.src = results[i].coverURL;
+
+      if (img.complete) {
+        if (img.naturalWidth !== 0) {
           this.draw(img, i);
-        };
+        } else {
+          img.onerror();
+        }
       }
     }
 
@@ -72,6 +83,12 @@ AFRAME.registerComponent('search-thumbnail-atlas', {
    * Draw thumbnail on canvas at row i.
    */
   draw: function (img, i) {
+    this.ctx.fillStyle = '#111';
+    this.ctx.fillRect(
+      0,
+      i * IMAGE_HEIGHT_CANVAS,
+      WIDTH,
+      IMAGE_HEIGHT_CANVAS);
     this.ctx.drawImage(
       img,
       0,

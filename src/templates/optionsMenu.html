@@ -1,62 +1,72 @@
-<a-entity
-  id="optionsMenu"
-  bind__visible="optionsMenuOpen"
-  position="0 0.5 0.01"
-  render-order="menutext"
-  user-data-options>
+<a-entity id="optionsMenu" bind__visible="optionsMenuOpen" position="0 0.5 0.01" render-order="menutext" user-data-options="" resource-pack-options="" visible="">
 
   <a-entity id="optionsTitle" mixin="font" text="align: center; value: OPTIONS; width: 2.5"></a-entity>
 
   <a-entity id="colorOptionsContainer" position="0 -0.25 0">
     <a-entity id="colorTitle" mixin="font" text="align: center; value: THEMES; width: 2"></a-entity>
 
-    <a-entity id="colorOptions" position="-0.79 -0.175 0.00" layout="type: box; columns: 10; margin: 0.2" materials-color-menu>
-      {% for color in COLORS.options %}
-        <a-entity
-          class="colorOption"
-          data-color-name="{{ COLORS.schemes[color].name }}"
-          data-color-scheme="{{ color }}"
-          mixin="clickSoundUI hoverSoundUI"
-          animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave"
-          geometry="primitive: plane; width: 0.15; height: 0.15"
-          material="shader: gradientShader; color1: {{ COLORS.schemes[color].primary }}; color2: {{ COLORS.schemes[color].secondary }}; transparent: true"
-          render-order="menutext"
-          bind-toggle__raycastable="optionsMenuOpen">
+    <a-entity id="colorOptions" position="-0.79 -0.175 0" layout="type: box; columns: 10; margin: 0.2; angle: NaN" materials-color-menu="">
+      
+        <a-entity class="colorOption" data-color-name="REBORN" data-color-scheme="default" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #C2C04C; color2: #E03A3E; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
         </a-entity>
-      {% endfor %}
+      
+        <a-entity class="colorOption" data-color-name="Super Medium" data-color-scheme="classic" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #f971c3; color2: #6ff9ea; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Star Warrior" data-color-scheme="blue" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #1e4482; color2: #c27727; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Galactic Royal" data-color-scheme="purple" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #6A39B3; color2: #FAF239; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Space Joker" data-color-scheme="green" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #779E37; color2: #6A39B3; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Trail Blazer" data-color-scheme="red" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #E03A3E; color2: #DADADA; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Mint Choco" data-color-scheme="rgb" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #34eb89; color2: #34ebd8; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Cheetah SoL" data-color-scheme="cheetah" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #c27727; color2: #635c54; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
+        <a-entity class="colorOption" data-color-name="Ash Nova" data-color-scheme="black" mixin="clickSoundUI hoverSoundUI" animation__mouseenter="property: scale; to: 1.2 1.2 1.2; dur: 150; easing: easeInOutCubic; startEvents: mouseenter" animation__mouseleave="property: scale; to: 1 1 1; dur: 125; easing: easeInOutCubic; startEvents: mouseleave" geometry="primitive: plane; width: 0.15; height: 0.15" material="shader: gradientShader; color1: #555; transparent: true" render-order="menutext" bind-toggle__raycastable="optionsMenuOpen" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" raycastable="">
+        </a-entity>
+      
     </a-entity>
 
-    <a-entity
-      id="colorName"
-      mixin="font"
-      text="align: center; color: #CCC; width: 1"
-      position="0 -0.35 0.1"
-      render-order="menutext"></a-entity>
+    <a-entity id="colorName" mixin="font" text="align: center; color: #CCC; width: 1" position="0 -0.35 0.1" render-order="menutext"></a-entity>
   </a-entity>
 
-  <a-entity id="dataOptionsContainer" position="0 -0.85 0">
-    <a-entity id="dataTitle" mixin="font" text="align: center; value: USER DATA; width: 2"></a-entity>
+  <a-entity id="dataOptionsContainer" position="-0.62 -0.85 0">
+    <a-entity id="dataTitle" mixin="font" text="align: center; value: USER DATA; width: 2" position="-0.1 0 0"></a-entity>
 
-    <a-entity position="0 -0.25 0.00">
-      <a-entity class="exportDataBtn"
-                mixin="bigMenuTopButton"
-                position="-0.4 0 0"
-                play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1"
-                play-sound__click="event: click; sound: #confirmSound; volume: 0.25"
-                bind-toggle__raycastable="optionsMenuOpen">
-        <a-entity mixin="bigMenuTopButtonFont" text="align: center; color: #FFF; wrapCount: 20; value: EXPORT"></a-entity>
+    <a-entity position="0 -0.25 0">
+      <a-entity class="exportDataBtn" mixin="bigMenuButton bigMenuTopButton" position="-0.4 0 0" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" bind-toggle__raycastable="optionsMenuOpen" geometry="height: 0.17" material="" animation__mouseenter1="dur: 100; from: 0; property: components.material.material.uniforms.activePanel.value; startEvents: mouseenter; pauseEvents: mouseleave; to: 1" animation__mouseleave1="dur: 100; from: 1; property: components.material.material.uniforms.activePanel.value; startEvents: mouseleave; pauseEvents: mouseenter; to: 0" animation__mouseenter2="dur: 80; from: 1 1 1; property: scale; startEvents: mouseenter; pauseEvents: mouseleave; to: 1.04 1.04 1.04" animation__mouseleave2="dur: 80; from: 1.04 1.04 1.04; property: scale; startEvents: mouseleave; pauseEvents: mouseenter; to: 1 1 1" raycastable="">
+        <a-entity mixin="font bigMenuTopButtonFont" text="align: center; wrapCount: 20; value: EXPORT"></a-entity>
       </a-entity>
 
-      <a-entity class="importDataBtn"
-                mixin="bigMenuTopButton"
-                position="0.4 0 0"
-                play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1"
-                play-sound__click="event: click; sound: #confirmSound; volume: 0.25"
-                bind-toggle__raycastable="optionsMenuOpen">
-        <a-entity mixin="bigMenuTopButtonFont" text="align: center; color: #FFF; wrapCount: 20; value: IMPORT"></a-entity>
+      <a-entity class="importDataBtn" mixin="bigMenuButton bigMenuTopButton" position="0.23 0 0" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" bind-toggle__raycastable="optionsMenuOpen" geometry="height: 0.17" material="" animation__mouseenter1="dur: 100; from: 0; property: components.material.material.uniforms.activePanel.value; startEvents: mouseenter; pauseEvents: mouseleave; to: 1" animation__mouseleave1="dur: 100; from: 1; property: components.material.material.uniforms.activePanel.value; startEvents: mouseleave; pauseEvents: mouseenter; to: 0" animation__mouseenter2="dur: 80; from: 1 1 1; property: scale; startEvents: mouseenter; pauseEvents: mouseleave; to: 1.04 1.04 1.04" animation__mouseleave2="dur: 80; from: 1.04 1.04 1.04; property: scale; startEvents: mouseleave; pauseEvents: mouseenter; to: 1 1 1" raycastable="">
+        <a-entity mixin="font bigMenuTopButtonFont" text="align: center; wrapCount: 20; value: IMPORT"></a-entity>
       </a-entity>
     </a-entity>
+  </a-entity>
+
+  <a-entity id="resourcePackContainer" position="0.78 -0.85 0">
+    <a-entity id="resourcePackTitle" mixin="font" text="align: center; value: RESOURCE PACK; width: 2" position="-0.1 0 0"></a-entity>
+
+    <a-entity position="0 -0.25 0">
+      <a-entity class="importPackBtn" mixin="bigMenuButton bigMenuTopButton" position="-0.4 0 0" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" bind-toggle__raycastable="optionsMenuOpen" geometry="height: 0.17" material="" animation__mouseenter1="dur: 100; from: 0; property: components.material.material.uniforms.activePanel.value; startEvents: mouseenter; pauseEvents: mouseleave; to: 1" animation__mouseleave1="dur: 100; from: 1; property: components.material.material.uniforms.activePanel.value; startEvents: mouseleave; pauseEvents: mouseenter; to: 0" animation__mouseenter2="dur: 80; from: 1 1 1; property: scale; startEvents: mouseenter; pauseEvents: mouseleave; to: 1.04 1.04 1.04" animation__mouseleave2="dur: 80; from: 1.04 1.04 1.04; property: scale; startEvents: mouseleave; pauseEvents: mouseenter; to: 1 1 1" raycastable="">
+        <a-entity mixin="font bigMenuTopButtonFont" text="align: center; wrapCount: 20; value: IMPORT"></a-entity>
+      </a-entity>
+
+      <a-entity class="clearPackBtn" mixin="bigMenuButton bigMenuTopButton" position="0.23 0 0" play-sound__hover="event: mouseenter; sound: #hoverSound; volume: 0.1" play-sound__click="event: click; sound: #confirmSound; volume: 0.25" bind-toggle__raycastable="optionsMenuOpen" geometry="height: 0.17" material="" animation__mouseenter1="dur: 100; from: 0; property: components.material.material.uniforms.activePanel.value; startEvents: mouseenter; pauseEvents: mouseleave; to: 1" animation__mouseleave1="dur: 100; from: 1; property: components.material.material.uniforms.activePanel.value; startEvents: mouseleave; pauseEvents: mouseenter; to: 0" animation__mouseenter2="dur: 80; from: 1 1 1; property: scale; startEvents: mouseenter; pauseEvents: mouseleave; to: 1.04 1.04 1.04" animation__mouseleave2="dur: 80; from: 1.04 1.04 1.04; property: scale; startEvents: mouseleave; pauseEvents: mouseenter; to: 1 1 1" raycastable="">
+        <a-entity mixin="font bigMenuTopButtonFont" text="align: center; wrapCount: 20; value: CLEAR"></a-entity>
+      </a-entity>
+    </a-entity>
+    
+    <a-entity id="resourcePackName" mixin="font" text="align: center; color: #CCC; width: 1.5; value: Active: None" position="-0.15 -0.100 0.1" render-order="menutext"></a-entity>
   </a-entity>
 
 </a-entity>

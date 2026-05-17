@@ -37,6 +37,15 @@ if (module.hot) { module.hot.accept(); }
 
 document.addEventListener('DOMContentLoaded', () => {
   initSubscribeForm();
+
+  if ('serviceWorker' in navigator) {
+    const swPath = window.location.pathname.replace(/\/[^\/]*$/, '/') + 'sw.js';
+    navigator.serviceWorker.register(swPath).then(registration => {
+      console.log('ServiceWorker registered for Resource Packs');
+    }).catch(error => {
+      console.log('ServiceWorker registration failed: ', error);
+    });
+  }
 });
 
 /**
